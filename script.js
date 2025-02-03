@@ -1,31 +1,27 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const audio = new Audio("love.mp3"); 
-    
-    const playAudio = () => {
-        audio.play().catch(error => {
-            console.log("Reproducción automática bloqueada, esperando interacción del usuario.");
-        });
-    };
-    
-    playAudio();
-    
-    document.body.addEventListener("click", () => {
-        audio.play();
-    }, { once: true });
-});
+const messages = [
+    "¿Estás segura?",
+    "¿Realmente segura?",
+    "¿Estás segura?",
+    "Lin mi amor, por favor...",
+    "¡Piénsalo!",
+    "Si dices que no, me pondré muy triste...",
+    "Me pondré muy triste...",
+    "Me pondré muy, muy, muy triste...",
+    "Está bien, dejaré de preguntar...",
+    "Es broma, ¡di que sí, por favor! ❤️"
+];
 
-document.addEventListener('contextmenu', function (e) {
-  e.preventDefault();
-});
+let messageIndex = 0;
 
-document.addEventListener('keydown', function (e) {
-  if (e.key === 'F12') {
-    e.preventDefault();
-  }
-  if (e.ctrlKey && e.shiftKey && e.key === 'I') {
-    e.preventDefault();
-  }
-  if (e.ctrlKey && e.key === 'u') {
-    e.preventDefault();
-  }
-});
+function handleNoClick() {
+    const noButton = document.querySelector('.no-button');
+    const yesButton = document.querySelector('.yes-button');
+    noButton.textContent = messages[messageIndex];
+    messageIndex = (messageIndex + 1) % messages.length;
+    const currentSize = parseFloat(window.getComputedStyle(yesButton).fontSize);
+    yesButton.style.fontSize = `${currentSize * 1.5}px`;
+}
+
+function handleYesClick() {
+    window.location.href = "yes_page.html";
+}
